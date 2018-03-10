@@ -3,116 +3,119 @@
     <head>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/app.css">
+    
     </head>
     <body>
-    	<p><strong>Korok Engine</strong> is a free lightweight, cross-platform, component-based 2D game engine written in Golang and released under the zlib license. Greatly inspired by bitsquid blog</p>
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+                <h5 class="my-0 mr-md-auto font-weight-normal">Korok.io</h5>
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="#">Home</a>
+                    <a class="p-2 text-dark" href="guide.html">Guide</a>
+                    <a class="p-2 text-dark" href="help.html">Help!</a>
+                    <a class="p-2 text-dark" href="https://github.com/KorokEngine/Korok">Github</a>
+                </nav>
+            </div>
 
+            <!-- Simple Intro -->
+            <div>
+                <p><strong>Korok Engine</strong> is a free lightweight, cross-platform, component-based 2D game engine written in Golang and released under the zlib license. Greatly inspired by bitsquid blog</p>
+            </div>
 
-        <p>Beta release features:<p>
+            <!-- Quick Start-->
+            <div>
+                <div id="gopher"></div>
+                <div class="card" style="width: 80%; margin: 0 auto">
+                    <code class="language-go card-body" style="margin: 0 auto">
+                        $ go get korok.io/korok
+                    </code>
+                </div>
+            </div> 
 
-        <ul>
-            <li>Tag/Script system</li>
-            <li>Transform based node system</li>
-            <li>Z-Order support</li>
-            <li>Particle system</li>
-            <li>Sprite/Tween animation system</li>
-            <li>GUI system</li>
-        </ul>
-    	
+            <div style="margin-top:20px">
+                <strong>Note for ADVENTURERS:</strong> korokengine is still in development, current release is beta.
+                There are still bugs and uncomplete features. The next version is v1.0 which will be a stable version.
+            </div>
 
-    	<p>
-    		There is no document for beta release, but there is a <a href="https://github.com/KorokEngine/beta-demo">demo-project</a>, which show all the feature listed above.
-    	</p>
+            <div style="margin-top:20px">
+                <strong>Features:</strong>
+                <ul>
+                    <li>Very fast to build and run!</li>
+                    <li>Component based architecture</li>
+                    <li>Cross platform (OSX/Windows, now)</li>
+                    <li>Auto sprite-batch support</li>
+                    <li>Tween/Sprite Animation</li>
+                    <li>Imgui based GUI system</li>
+                    <li>Lots buildin components</li>
+                </ul>
+            </div>
 
-        <p> Star our <a href="https://github.com/KorokEngine/Korok"><strong>Github Project</strong></a>     
-            <br>
-            Follow our <a href="https://twitter.com/ntoooop"><strong>Twitter</strong></a></p>
+            <!--Follow and Star
+            <div>
+                 <p> Star our <a href="https://github.com/KorokEngine/Korok"><strong>Github Project</strong></a>     
+                <br>
+                Follow our <a href="https://twitter.com/ntoooop"><strong>Twitter</strong></a></p>
+            </div>
+            -->
 
-             <p> <strong>Wanna Help?</strong>
-            <br>
-            <ul>
-                <li>If you are a game programer, you can help to fix bugs.</li>
-                <li>If you are a designer, you can help to desin a logo.</li>
-                <li>If you are a web develper, you can help to improve this website.</li>
-            </ul>
+            <!--Examples-->
+            <h4 style="margin-top:30px;">Examples</h4>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm">
+                    Text<br>
+                    <img src="static/img/alpha_text.jpeg">
+                </div>
+                <div class="col-sm">
+                    Sprite<br>
+                    <img src="static/img/alpha_sprite.jpeg">
+                </div>
+                <div class="col-sm">
+                    Input Control<br>
+                    <img src="static/img/alpha_input.gif">
+                </div>
+            </div>
 
-            <span>Or donations via WeChat:</span>
-            <br>
-            <img src="static/donation.jpg" width="240px"/>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-sm">
+                    Sprite Animation<br>
+                    <img src="static/img/beta_frame.gif" width="500">
+                </div>
+                <div class="col-sm">
+                    Tween Animation<br>
+                    <img src="static/img/beta_tween.gif" width="500">
+                </div>
 
-        </p>
+                <div class="col-sm">
+                    ParticleSystem<br>
+                    <img src="static/img/beta_particle.gif" width="500">
+                </div>
+            </div>
+        </div>
+        <div style="background-color:#f6f6f6; margin-top:30px; padding-top:50px;padding-bottom:30px">
+            <div style="width:500px; margin: 0 auto">
+                <p style="margin: 0 auto">
+                    <a href="https://github.com/KorokEngine/Korok">
+                      <svg style="width:24px;" aria-labelledby="simpleicons-github-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-github-icon" lang="en">GitHub icon</title><path fill="#343434" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                    </a>
 
+                    <a href="https://twitter.com/ntoooop" target="_blank">
+                      <svg style="width:24px;" aria-labelledby="simpleicons-twitter-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title id="simpleicons-twitter-icon" lang="en">Twitter icon</title><path fill="#0084b4" d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"></path></svg>
 
-        <p><strong>Some ScreenShots</strong></p>
+                    </a>
+                </p>
+                <p>Released under the <a class="bd-toc-link" href="https://opensource.org/licenses/Zlib" target="_blank">Zlib License</a><br>
+                    Copyright © 2017-2018 Korok.io
+                </p>
+            </div>
+        </div>
 
-        Text
-        <br>
-        <img src="static/img/alpha_text.jpeg" width="500">
-        <br>
-        <br>
-
-        Sprite
-        <br>
-        <img src="static/img/alpha_sprite.jpeg" width="500">
-        <br>
-        <br>
-
-        Input Control
-
-        <br>
-        <img src="static/img/alpha_input.gif" width="500">
-        <br>
-        <br>
-
-        Sprite Animation
-
-        <br>
-        <img src="static/img/beta_frame.gif" width="500">
-        <br>
-        <br>
-
-        Tween Animation
-
-        <br>
-        <img src="static/img/beta_tween.gif" width="500">
-        <br>
-        <br>
-
-        ParticleSystem
-
-        <br>
-        <img src="static/img/beta_particle.gif" width="500">
-        <br>
-        <br>
-
-        GUI - korok's imgui-api
-
-        <br>
-        <img src="static/img/beta_gui.gif" width="500">
-        <br>
-
-         <p> <strong>Note:</strong><br>Beta release is still bugly. <br>The next version is v1.0:<br>
-            <ul>
-                <li>Debug System</li>
-                <li>FPS Smoothing</li>
-                <li>Clip/AntiAliasing Support</li>
-                <li>Mobile Support</li>
-                <li> and less bugs</li>
-            </ul>
-         </p>
     
-        <p> <strong>Release History:</strong> 
-            <br>
-            <span>Alpha:</span>
-            <br>
-            <ul>
-                <li>Entity management</li>
-                <li>Font/Mesh rendering</li>
-                <li>Batch sprite rendering</li>
-                <li>Keyboard input process</li>
-                <li>FPS/Debug draw</li>
-            </ul>
-        </p>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	</body>
 </html>
