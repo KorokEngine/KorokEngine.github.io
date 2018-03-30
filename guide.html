@@ -48,8 +48,78 @@
 
                     </nav>
                 </div>
-                <div>
-                    Document is in Progress, Please wait...
+
+                <div class="col-sm-1"></div>
+                <div class="col">
+                    <h1 class="bd-title">Installation </h5>
+
+                    <p>1. Install Go:</p>
+                    <p class="bd-lead">Install the latest version of Go from <a class="alert-link" href="https://golang.org/">here</a>. </p>
+                    <p>Note: Korok requires at least Go version 1.8 (for best Cgo performance).</p>
+
+                    <p>2. Install korok:</p>
+
+                    <div class="card" style="width: 300px;">
+                        <code class="language-go card-body">
+                            $ go get korok.io/korok
+                        </code>
+                    </div>
+
+                    <p style="margin-top:10px;">Note: Dependencies is installed automatically when you use <code>go get</code> command, these are: <br>
+                        <ul>
+                            <li><a href="https://github.com/go-gl/gl">go-gl</a></li>
+                            <li><a href="https://github.com/go-gl/glfw">glfw</a></li>
+                            <li><a href="https://github.com/golang/freetype">freetype</a></li>
+                            <li><a href="https://godoc.org/golang.org/x/image">golang/x/image</a></li>
+                            <li><a href="https://godoc.org/golang.org/x/mobile">golang/x/mobile</a></li>
+                        </ul>
+                    </p>
+
+                    <h1 class="bd-title">Hello World</h5>
+
+                    <p>1. Create a file: <code>main.go</code></p>
+                    <p>2. Copy the following code:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    package main
+
+    import (
+        "korok.io/korok"
+        "korok.io/korok/game"
+        "korok.io/korok/gfx/dbg"
+    )
+
+    type MainScene struct {
+    }
+
+    func (m *MainScene) OnEnter(g *game.Game) {
+    }
+
+    func (m *MainScene) Update(dt float32) {
+        dbg.Move(180, 160)
+        dbg.DrawStr("Hello World")
+    }
+
+    func (*MainScene) OnExit() {
+    }
+
+    func main() {
+        // Run game
+        options := &korok.Options{
+            Title: "Hello, Korok Engine",
+            Width: 480,
+            Height:320,
+        }
+        korok.Run(options, &MainScene{})
+    }
+                        </code>
+                    </pre></div>
+
+                    <p>3. Run the code with <code>go run main.go</code>, your first Korok app works!</p>
+                    <img src="static/img/hello.jpeg" style="width:500px;">
+
+                    <p style="margin-bottom:30px; margin-top:20px"> <span style="color:red">♥</span> <strong>Note:</strong> Learn more from the <a class="alert-link" href="https://github.com/KorokEngine/beta-demo">Demo Project</a>. </p>
                 </div>
             </div>
         </div>
