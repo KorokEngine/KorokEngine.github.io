@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/css/app.css">
+    
+    </head>
+    <body>
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+                <h5 class="my-0 mr-md-auto font-weight-normal">Korok.io</h5>
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="../index.html">Home</a>
+                    <a class="p-2 text-dark" href="../guide.html">Guide</a>
+                    <a class="p-2 text-dark" href="../help.html">Help!</a>
+                    <a class="p-2 text-dark" href="https://github.com/KorokEngine/Korok">Github</a>
+                </nav>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 bd-sidebar">
+                    <nav>
+                        <h5>Overview</h5>
+                        <ul class="nav flex-column">
+                            <li><a href="../guide.html">Quick Start</a></li>
+                            <li><a href="basic.html">Basics</a></li>
+                        </ul>
+
+                        <h5 style="margin-top:30px;">Tutorial</h5>
+                        <div class="sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li><a href="todo.html">Sprite</a></li>
+                                <li><a href="todo.html">Text</a></li>
+                                <li><a href="todo.html">Node</a></li>
+                                <li><a href="todo.html">Script</a></li>
+                                <li><a href="todo.html">Camera</a></li>
+                                <li><a href="todo.html">Input</a></li>
+                                <li><a href="todo.html">Sprite Animation</a></li>
+                                <li><a href="todo.html">Tween Animaton</a></li>
+                                <li><a href="todo.html">Particle System</a></li>
+                            </ul>
+                        </div>
+
+                        <h5 style="margin-top:30px;">Revision</h5>
+
+                    </nav>
+                </div>
+
+                <div class="col">
+                    <h1 class="bd-title">Basics</h1>
+                    <p>This page aims at giving a overview of the korok engine.</p>
+
+                    <h2>Scene、Entity and Component</h2>
+
+                    <p>Scene and Entity/Component are fundamental building blocks of a Korok app.</p>
+
+                    <h4>Scene</h4>
+
+                    <p>A scene is the entry point for interacting with the user. For example, a platform game might have one scene shows the main menu, another scene to host the main game. You can create a scene by implementing the Scene interface.</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    type Scene interface {
+        OnEnter(g *Game)
+
+        Update(dt float32)
+        
+        OnExit()
+    }                       
+                        </code></pre>
+                    </div>
+
+                    <p>Most games contain multiple scenes, all these scenes work together to form a completed game. There are usually minimal dependencies among the scenes in a game. SceneManager is used to manage scenes in a game, they are arranged in a FILO stack.</p>
+
+                    <p>The principal SceneManager method you can use are</p>
+                    <ul>
+                        <li><strong>Push()</strong> // Push a scene into stack, it'll fire OnEnter callback.</li>
+                        <li><strong>Pop()</strong> // Pop a scene from stack, it'll fire OnExit callback.</li>
+                        <li><strong>Peek()</strong> // Get the scene instance at the top of scene stack.</li>
+                    </ul> 
+
+                    <p>Over the course of its lifetime, a scene goes through a number of states. You use a series of callbacks to handle transitions between states.</p>
+
+                    <p><I>OnEnter()</I></p>
+                    <p>A callback which fires when the scene is pushed into stack. You can initialize the components of your scene: For example, you game should create Entities and components. When OnEnter() finishes, it's OnUpdate method will be called each frame.</p>
+                
+                    <p><I>OnUpdate()</I></p>
+                    <p>The system invokes this callback each frame. Generally, an idea frame rate is 60fps, which means OnUpdate will be called very 16ms. This is where you gameplay code comes in, For example: handle user input and simulate game logic.</p>
+
+                    <p><I>OnExit()</I></p>
+                    <p>The system invokes this callback when another scene is Pushed in, the current scene is stopped and it's OnUpdate method will not be invoked. It's a good place to release the resoruces used by this scene.</p>
+
+                    <h4>Entity/Component</h4>
+
+                    <p>Entity is the game object in Korok(e.g. enemies, bullets, etc.). It's a unique id used to index a collection of different components that represent it(yeah. it's a ECS system). Every Entity consists of one or more components which add additional behavior or functionality, you can also add or remove components at runtime.</p>
+
+                    <p>To create a new entity, you can use:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    hero := korok.Enity.New()
+                        </code></pre>
+                    </div>
+                    <p>But, this will not create a real hero. To make the hero live, add a SpriteComp and a Transform:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    // add a sprite component
+    spr := korok.Sprite.New(hero)
+    spr.SetSprite(texture)
+
+    // add a transform component
+    xf  := korok.Transform.New(hero)
+    xf.SetPosition(f32.Vec2{100, 100})
+                        </code></pre>
+                    </div>
+
+                    <p>Now, the hero can be rendered at location (100, 100) with a texture. That's a common use case of Entity.</p>
+                
+                    <p>Korok has some built-in component types, sunch as:</p>
+                    <ul>
+                        <li>SpriteComp lets you display images as Sprites for use in scene.</li>
+                        <li>Transform determines the Position, Rotation and Scale of the Entity in scene.</li>
+                        <li>TextComp lets you display text strings in scene.</li>
+                        <li>ParticleComp uses a large number of small sprites to simulate fire, snow.. or any "fuzzy" phenomena.</li>
+                    </ul>
+
+                    <p>Each component is simple data buckets, they have no dependencies of each other. They can only be indexed by Entity. On other way, entity is nothing without components, it's just an ID. An entity with required components make a real game object.</p>
+                    
+                    <h2>Table and System</h2>
+                    <p>Table is the container of components. It's the same idea as the table in Database. Table provides simple method to Create/Index/Delete component:</p>
+
+                    <ul>
+                        <li><B>New(Enity)</B> // Create a component with specified Entity.</li>
+                        <li><B>Comp(Entity)</B> // Find the component belongs to the Entity.</li>
+                        <li><B>Delete(Entity)</B> // Delete the componnet belongs to the Entity.</li>
+                    </ul>
+
+                    <p>The data in table is all efficiently organized in tightly packed contiguous array.</p>
+
+                    <p>System performs actions on components, but system don't own components or entity or table. It only keep a ref to interested tables and operate on components. A table can be refed by any system, For example: both move-system and render-system have a ref to TransformTable.</p>
+
+                    <p>Both table and system are managed by the Game struct. Game is the toppest existence that govern the game world. You can list all the tables by:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    for _, table := range game.DB.Tables {
+        // 
+    }
+                        </code></pre>
+                    </div>
+
+                    <p>or get systems by:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    // get the render system
+    render_system := game.RenderSystem
+
+    // get the input system
+    input_system := game.InputSystem
+                        </code></pre>
+                    </div>
+
+                    <p>For a more in-depth view of the engine, you are encouraged to read this documentation further.</p>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+</html>
