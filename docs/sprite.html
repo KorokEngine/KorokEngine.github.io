@@ -50,7 +50,45 @@
                 </div>
 
                 <div class="col">
-                    <p>Comming soon!</p>
+                    <p>In korok, sprite is a rename of <code>gfx.Tex2D</code> which is a texture with some meta-data. By default, <code>SpriteComp</code> is used to draw sprite, which is the most commonly used renderable element.</p>
+
+                    <h2>Load Texture</h2>
+                    <p>For a single image:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    asset.Texture.Load("face.png")
+    face := asset.Texture.Get("face.png")
+                        </code></pre>
+                    </div>
+
+                    <p>For atlas:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    assets.Texture.LoadAtals("images/bird.png", "images/bird.json")
+
+    at, _ := asset.Texture.Atlas("images/bird.png")
+    bg, _ := at.GetByName("background.png")
+    nm, _ := at.GetByName("game_name.png")
+                        </code></pre>
+                    </div>
+
+                    <h2>Draw Sprite</h2>
+                    <p><code>SpriteComp</code> is used to draw sprite. By default, <code>SpriteComp</code> suppose a <code>Transform</code> component exist. You should always have a <code>Transform</code> component, almost very time you want to drawing something.</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+
+    entity := korok.Entity.New()
+
+    spr := korok.Sprite.NewComp(entity)
+    spr.SetSprite(tex2d)
+
+    xf := korok.Transform.NewComp(entity)
+    xf.SetPosition(f32.Vec2{100, 100})
+                        </code></pre>
+                    </div>
+
+
                 </div>
             </div>
         </div>
