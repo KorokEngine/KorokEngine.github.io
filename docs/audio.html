@@ -46,7 +46,38 @@
                 </div>
 
                 <div class="col">
-                    <p>Comming soon!</p>
+                    <h1 class="bd-title">Audio</h1>
+                    <p>Korok supports two types of Player:</p>
+                    <ul>
+                        <li><B>Music Player</B> - can only play one sound at a time.</li>
+                        <li><B>Effect Player</B> - can play serveral sounds at the same time.</li>
+                    </ul>
+                    <p>Music player is designed to play long music tracks, effect player is used to play short sound effect. Korok only supports Ogg/Vorbis and WAV file format.</p>
+
+                    <h2>Play</h2>
+
+                    <p>You can load audio and play like:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+func (*MainScene) Load() {
+    // stream the file from disk, good for longer music tracks
+    asset.Audio.Load("ambient.ogg", true) 
+
+    // load the file into memory, good for short sound effects
+    asset.Audio.Load("birds.wav", false)  
+}
+
+func (m *MainScene) OnEnter(g *game.Game) {
+    ogg, _ := asset.Audio.Get("ambient.ogg")
+    wav, _ := asset.Audio.Get("birds.wav")
+
+    audio.PlayMusic(ogg)
+    audio.PlayEffect(wav)
+}
+                        </code></pre>
+                    </div>
+
+                    <p>By default, music player can only play streamed sound and effect player can only play in-memory static sound, this is a convention in Korok.</p>
                 </div>
             </div>
         </div>

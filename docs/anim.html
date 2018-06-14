@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/css/app.css">
+    
+    </head>
+    <body>
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+                <h5 class="my-0 mr-md-auto font-weight-normal">Korok.io</h5>
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="../index.html">Home</a>
+                    <a class="p-2 text-dark" href="../guide.html">Guide</a>
+                    <a class="p-2 text-dark" href="../help.html">Help!</a>
+                    <a class="p-2 text-dark" href="https://github.com/KorokEngine/Korok">Github</a>
+                </nav>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 bd-sidebar">
+                    <nav>
+                        <h5>Overview</h5>
+                        <ul class="nav flex-column">
+                            <li><a href="../guide.html">Quick Start</a></li>
+                            <li><a href="basic.html">Basics</a></li>
+                        </ul>
+
+                        <h5 style="margin-top:30px;">Tutorial</h5>
+                        <div class="sidebar-sticky">
+                            <ul class="nav flex-column">
+                                <li><a href="sprite.html">Sprite</a></li>
+                                <li><a href="font.html">Font</a></li>
+                                <li><a href="audio.html">Audio</a></li>
+                                <li><a href="todo.html">Input</a></li>
+                                <li><a href="anim.html">Animation</a></li>
+                            </ul>
+                        </div>
+
+                        <h5 style="margin-top:30px;">Revision</h5>
+
+                    </nav>
+                </div>
+
+                <div class="col">
+                    <h1 class="bd-title">Animation</h1>
+                    <p>Korok supports two types of animation:</p>
+                    <ul>
+                        <li>Sprite Animation</li>
+                        <li>Tween Animation</li>
+                    </ul>
+
+                    <h2>Sprite Animation</h2>
+                    <p>Sprite animation also known as flip book animation consists of a series of key frames, each of which is still image. To run an animation, you should first create an animation, then play it with <code>FlipbookComp</code> component. <code>FlipbookComp</code> will only produce keyframe at a giving rate. A <code>SpriteComp</code> is needed to render the frame.</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+func (m *MainScene) OnEnter(g *game.Game) {
+    hero := korok.Entity.New()
+
+    // SpriteComp
+    sprite := korok.Sprite.NewComp(hero)
+    sprite.SetSize(50, 50)
+
+    xf := korok.Transform.NewComp(hero)
+    xf.SetPosition(f32.Vec2{100, 100})
+
+    // create a walk animation
+    frames := []gfx.Tex2D{...}
+    g.SpriteEngine.NewAnimation("walk", frames, true)
+
+    fb := korok.Flipbook.NewComp(hero)
+    fb.SetRate(.2)
+
+    // play animation
+    fb.Play("walk")
+}
+                        </code></pre>
+                    </div>
+
+                    <p>The method creates an Entity with three components: <code>SpriteComp</code>, <code>Transform</code> and <code>FlipbookComp</code>. Then, the "walk" animation is created with frames and set the looping state to be true. <code>fb.SetRate(.2)</code> sets the playing rate, next frame will be displayed after 0.2 second. Call <code>fb.Play("walk")</code> to start the animation.</p>
+
+                    <h2>Tween Animation</h2>
+                    <p>Tween animation is usually used to animate numeric properties(float, vec2). In Korok, an Animator is used to track the state of Animation which is managed by the TweenEngine. Animation linearly produces the numbers from 0.0 to 1.0 during a given duration.</p>
+
+                    <div class="bg-light" style="overflow-x: scroll;"><pre>
+                        <code class="language-js" data-lang="js">
+func (m *MainScene) OnEnter(g *game.Game) {
+    animator := g.TweenEngine.NewAnimator()
+    animator.SetDuration(1).SetFunction(ease.Linear).
+            SetRepeat(ween.RepeatInfinite, ween.PingPong).Forward()
+}
+func (m *MainScene) OnExit() {
+    animator.Dispose()
+}
+                        </code></pre>
+                    </div>
+  
+                    <p>To access it's current value:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    fmt.Print(animator.Value())
+                        </code></pre>
+                    </div>
+
+                    <p>By default, the Animator value ranges from 0.0 to 1.0. If tyou need a different range or a different data type, you can use a Tween to interpolate to a different range or data type. For example, the following Tween goes from 0 to 100:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+    f32Tween := ween.F32Tween{}
+    f32Tween.Range(0, 100).Animate(animator)
+                        </code></pre>
+                    </div>
+                    <p>A Tween struct does not store any state. It provides the Value() method that applies the mapping function to the current value of the Animator(animaton).</p>
+                    
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+func (t *F32Tween) Value() float32 {
+    return F32Lerp(t.from, t.to, t.am.Value())
+}
+                        </code></pre>
+                    </div>
+
+                    <h2>Helper method</h2>
+                    <p>The <code>anim</code> package provides some helper method to simplify the usage of Animator. For example:</p>
+                    <div class="bg-light" style="overflow-x: scroll;"><pre>
+                        <code class="language-js" data-lang="js">
+anim.OfVec2(&m.position, f32.Vec2{50, 50}, f32.Vec2{250, 50}).SetDuration(1).
+    OnUpdate(func (r bool, f float32){
+        log.Println("animation value..", f)
+    }).OnComplete(func (r bool){
+        log.Println("animaton end....")
+    }).Forward()
+                        </code></pre>
+                    </div>
+                    <p>The method interpolate from {50, 50} to {250, 50} during 1 second. It creates an Animator internally and dispose it once completed.</p>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+</html>

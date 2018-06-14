@@ -46,7 +46,43 @@
                 </div>
 
                 <div class="col">
-                    <p>Comming soon!</p>
+                    <h1 class="bd-title">Font</h1>
+                    <p>Fonts are used to render TextComp and text/shape in GUI system. Korok supports font files in TrueType or BMFont format.</p>
+                    <h2>Create a font</h2>
+                    <p>Suppose that we have font files in project:</p>
+
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+➜  tree demo/assets 
+assets
+├── font.json
+├── font.png
+└── honokamin.ttf
+                        </code></pre>
+                    </div>
+                    <p>To create font, use default <code>FontManager</code>:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+func (m *MainScene) Load() {
+    asset.Font.LoadBitmap("font1", "font.png", "font.json")
+    asset.Font.LoadTrueType("font2", "honokamin.ttf")
+}
+                        </code></pre>
+                    </div>
+
+                    <h2>Render Text</h2>
+                    <p>A simple use case in GUI system:</p>
+                    <div class="bg-light"><pre>
+                        <code class="language-js" data-lang="js">
+font, _ := asset.Font.Get("font1")
+gui.SetFont(font)
+
+// draw text
+gui.Text(1, gui.Rect{}, "The quick brown fox jumps over the lazy dog", nil)
+                        </code></pre>
+                    </div>
+
+
                 </div>
             </div>
         </div>
