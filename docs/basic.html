@@ -138,7 +138,7 @@
                         <li><B>Delete(Entity)</B> // Delete the componnet belongs to the Entity.</li>
                     </ul>
 
-                    <p>The data in table is all efficiently organized in tightly packed contiguous array.</p>
+                    <p>The data in table is all efficiently organized in tightly packed contiguous array. Always, use <I>Comp(Entity)</I> method to access component, it returns a pointer to the component. But never hold the pointer, it will change from frame to frame(table can layout their data internally and process it as they want).</p>
 
                     <p>System performs actions on components, but system don't own components or entity or table. It only keep a ref to interested tables and operate on components. A table can be refed by any system, For example: both move-system and render-system have a ref to TransformTable.</p>
 
@@ -164,7 +164,12 @@
                         </code></pre>
                     </div>
 
-                    <p>For a more in-depth view of the engine, you are encouraged to read this documentation further.</p>
+                    <h2>Sprite and Texture</h2>
+                    <p>In 2D games, sprite is an image that can be positioned in a larger scene. A texture, on the other hand, is the concept of a readable image in modern graphics APIs. Korok use <I>gfx.Tex2D</I> to describe 2D (1D and 3D textures exist) texture, it consists of an ID, size and uv coordinates.</p>
+
+                    <p>When multiple smaller images are combined into a single images, the resulting image is called a texture atlas(or sprite sheet). The samller images are refered by name(or by index) as <I>gfx.Tex2D</I> with it's size and uv.</p>
+
+                    <p>Generally, there is no sprite object in Korok, sprite is just a rename of <I>gfx.Tex2D</I>. <I>SpriteComp</I> is used to draw a sprite(Tex2d), it's optimised(by batch) to handle large amount of small images. Graphics components must have a <I>Transform</I> component that used to position/scale/rotate an Entity。</p>
                 </div>
             </div>
         </div>
