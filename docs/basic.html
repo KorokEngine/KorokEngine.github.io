@@ -97,7 +97,7 @@
                     <p>To create a new entity, you can use:</p>
                     <div class="bg-light"><pre>
                         <code class="language-js" data-lang="js">
-    hero := korok.Enity.New()
+    hero := korok.Entity.New()
                         </code></pre>
                     </div>
                     <p>But, this will not create a real hero. To make the hero live, add a SpriteComp and a Transform:</p>
@@ -129,7 +129,7 @@
                     <p>Table is the container of components. It's the same idea as the table in Database. Table provides simple method to Create/Index/Delete component:</p>
 
                     <ul>
-                        <li><B>New(Enity)</B> // Create a component with specified Entity.</li>
+                        <li><B>New(Entity)</B> // Create a component with specified Entity.</li>
                         <li><B>Comp(Entity)</B> // Find the component belongs to the Entity.</li>
                         <li><B>Delete(Entity)</B> // Delete the componnet belongs to the Entity.</li>
                     </ul>
