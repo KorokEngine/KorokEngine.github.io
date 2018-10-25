@@ -45,7 +45,7 @@
                     </nav>
                 </div>
 
-                <div class="col">
+                <div class="col-sm-10">
                     <h1 class="bd-title">Animation</h1>
                     <p>Korok supports two types of animation:</p>
                     <ul>
@@ -127,7 +127,7 @@ func (t *F32Tween) Value() float32 {
 
                     <h2>Helper method</h2>
                     <p>The <code>anim</code> package provides some helper method to simplify the usage of Animator. For example:</p>
-                    <div class="bg-light" style="overflow-x: scroll;"><pre>
+                    <div class="bg-light" style="overflow-x: scroll;"><pre class="pre-x-scrollable">
                         <code class="language-js" data-lang="js">
 anim.OfVec2(&m.position, f32.Vec2{50, 50}, f32.Vec2{250, 50}).SetDuration(1).
     OnUpdate(func (r bool, f float32){
