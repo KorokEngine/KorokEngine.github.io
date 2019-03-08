@@ -108,8 +108,7 @@
     }
 
     func (m *MainScene) Update(dt float32) {
-        dbg.Move(180, 160)
-        dbg.DrawStr("Hello World")
+        dbg.DrawStr(180, 160, "Hello World")
     }
 
     func (*MainScene) OnExit() {
